@@ -1,11 +1,14 @@
 package pl.vrum.bookProject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.vrum.bookProject.model.Book;
 import pl.vrum.bookProject.repositories.BookRepository;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 
 @CrossOrigin
@@ -25,12 +28,13 @@ public class BookController {
     }
 
     @GetMapping("/{param1}")
-    public Book  book(@PathVariable long param1) {
+    public Book book(@PathVariable long param1) {
         return bookRepository.findById(param1);
     }
 
     @PostMapping
-    public Book bookAdd(@RequestBody Book book) {
+    public Book bookAdd(@ModelAttribute("book") Book book) {
+        book.setId(1);
         bookRepository.save(book);
         return book;
     }
@@ -52,37 +56,12 @@ public class BookController {
     }
 
 
+    @DeleteMapping("/{id}")
+    public void deleteBook(@PathVariable long id)
+    {
+        Book book=bookRepository.findById(id);
+        bookRepository.delete(book);
+    }
 
-
-    //
-//    MemoryBookService mbs;
-//
-//    @Autowired
-//    public BookController(MemoryBookService mbs) {
-//        this.mbs = mbs;
-//    }
-//
-//    @GetMapping
-//    public List<Book> allBooks() {
-//        List<Book> list = mbs.getList();
-//        return list;
-//    }
-//
-//    @GetMapping("/{param1}")
-//    public Book  book(@PathVariable long param1) {
-//        return mbs.getBookById(param1);
-//    }
-//
-//    @PostMapping
-//    public Book bookAdd(@RequestBody Book book) {
-//        mbs.addBook(book);
-//        return book;
-//    }
-//
-//    @PutMapping("/{param1}")
-//    public Book update(@RequestBody Book book, @PathVariable long param1) {
-//        mbs.editBookId(book, param1);
-//        return book;
-//    }
 
 }
