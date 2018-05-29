@@ -19,8 +19,8 @@ public class BookController {
 
 
     @GetMapping
-    public List<Book> allBooks() {
-        List<Book> list = bookRepository.findAll();
+    public Iterable<Book> allBooks() {
+        Iterable<Book> list = bookRepository.findAll();
         return list;
     }
 

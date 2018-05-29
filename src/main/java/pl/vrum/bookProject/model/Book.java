@@ -1,5 +1,7 @@
 package pl.vrum.bookProject.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,7 +14,9 @@ public class Book {
     private String isbn;
     private String title;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="author_id")
+    @JsonManagedReference
     private Author author;
     private String publisher;
     private String type;

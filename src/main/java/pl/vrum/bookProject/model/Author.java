@@ -1,5 +1,7 @@
 package pl.vrum.bookProject.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,14 +16,9 @@ public class Author {
     private String lastName;
     private String country;
 
-    @OneToMany
+    @OneToMany(mappedBy = "author")
+    @JsonBackReference
     private List<Book> books;
-
-    public Author(String firstName, String lastName, String country) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.country = country;
-    }
 
     public Author(String firstName, String lastName, String country, List<Book> books) {
         this.firstName = firstName;
