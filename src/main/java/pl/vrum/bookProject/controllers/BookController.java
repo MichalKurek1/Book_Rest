@@ -2,7 +2,6 @@ package pl.vrum.bookProject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.vrum.bookProject.MemoryBookService;
 import pl.vrum.bookProject.model.Book;
 import pl.vrum.bookProject.repositories.BookRepository;
 
