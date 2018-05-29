@@ -1,19 +1,24 @@
-package pl.vrum.bookProject;
+package pl.vrum.bookProject.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "books")
 public class Book {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String isbn;
     private String title;
-    private String author;
+    @ManyToOne
+    private Author author;
     private String publisher;
     private String type;
 
-    public Book() {
-    }
+    public Book() {    }
 
-    public Book(long id, String isbn, String title, String author, String publisher, String type) {
-        this.id = id;
+    public Book(String isbn, String title, Author author, String publisher, String type) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -39,12 +44,6 @@ public class Book {
     public void setTitle(String title) {
         this.title = title;
     }
-    public String getAuthor() {
-        return author;
-    }
-    public void setAuthor(String author) {
-        this.author = author;
-    }
     public String getPublisher() {
         return publisher;
     }
@@ -57,6 +56,10 @@ public class Book {
     public void setType(String type) {
         this.type = type;
     }
-
-
+    public Author getAuthor() {
+        return author;
+    }
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
 }
