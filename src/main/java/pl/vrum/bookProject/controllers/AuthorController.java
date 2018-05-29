@@ -1,15 +1,13 @@
 package pl.vrum.bookProject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.vrum.bookProject.model.Author;
-import pl.vrum.bookProject.model.Book;
 import pl.vrum.bookProject.repositories.AuthorRepository;
-import pl.vrum.bookProject.repositories.BookRepository;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/authors")
 public class AuthorController {
@@ -38,7 +36,6 @@ public class AuthorController {
     @PutMapping("/{param1}")
     public Author update(@RequestBody Author author, @PathVariable long param1) {
         Author oldAuthor = authorRepository.findById(param1);
-
         return oldAuthor;
     }
 

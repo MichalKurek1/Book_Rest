@@ -8,6 +8,7 @@ import pl.vrum.bookProject.repositories.BookRepository;
 import java.util.List;
 
 
+@CrossOrigin
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -15,6 +16,7 @@ public class BookController {
 
     @Autowired
     BookRepository bookRepository;
+
 
     @GetMapping
     public List<Book> allBooks() {
