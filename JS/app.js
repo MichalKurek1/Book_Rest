@@ -3,7 +3,9 @@ $(document).ready(function () {
     var addBook = $('#addBook');
     var findBook = $('#findBook');
     var findAllBooks = $('#findAllBooks');
-    var button3 = $('.buttonNew')
+    var addAuthor = $('#addAuthor');
+    var findAuthor = $('#findAuthor');
+    var findAllAuthors = $('#findAllAuthors');
 
     addBook.on('click', function () {
 
@@ -16,14 +18,12 @@ $(document).ready(function () {
         $.ajax({
             url: 'http://localhost:8080/books/',
             type: 'POST',
-            dataType: 'json',
-            data:  JSON.stringify({"isbn": isbn, "title": title, "author": authorID, "publisher": publisher, "type": type}),
+            data:  ({"isbn": isbn, "title": title, "author": authorID, "publisher": publisher, "type": type}),
             success: function () {
             }
         });
 
     });
-
 
     findBook.on('click', function () {
 
@@ -57,7 +57,6 @@ $(document).ready(function () {
         });
     });
 
-
     $('#books').on('click', '.removeButton', function(event){
         event.preventDefault();
         $.ajax({
@@ -68,6 +67,65 @@ $(document).ready(function () {
     });
 
 
+
+
+
+
+    addAuthor.on('click', function () {
+
+        var firstName = $('#firstName').val();
+        var lastName = $('#lastName').val();
+        var country = $('#country').val();
+
+        $.ajax({
+            url: 'http://localhost:8080/authors/',
+            type: 'POST',
+            data:  ({"lastName": lastName, "firstName": firstName, "country": country}),
+            success: function () {
+            }
+        });
+    });
+
+    findAuthor.on('click', function () {
+
+        var id = $('#idAuthor').val()
+        var author = $('#author')
+
+        $.ajax({
+            url: 'http://localhost:8080/authors/' + id,
+            type: 'GET',
+            success: function (result) {
+                var newLine = $('<p>')
+                newLine.html("First name: " + result.firstName + ", Last name: " + result.lastName +", Country: "+result.country );
+                author.append(newLine)
+            }
+        });
+    });
+
+    findAllAuthors.on('click', function () {
+
+        $.ajax({
+            url: 'http://localhost:8080/authors/',
+            type: 'GET',
+            success: function (result) {
+
+                for (var i = 0; i < result.length; i++) {
+                    var removeButton = $('<button class="removeButton" id=' + result[i].id + ' >');
+                    removeButton.text('Delete');
+                    $('#authors').append("First name: " + result[i].firstName + ", Last name: " + result[i].lastName +", Country: "+result[i].country).append(removeButton).append('<br>');
+                }
+            }
+        });
+    });
+
+    $('#authors').on('click', '.removeButton', function(event){
+        event.preventDefault();
+        $.ajax({
+            url: 'http://localhost:8080/authors/'+$(this).attr('id'),
+            dataType: 'json',
+            type: 'delete',
+        });
+    });
 
 
 });

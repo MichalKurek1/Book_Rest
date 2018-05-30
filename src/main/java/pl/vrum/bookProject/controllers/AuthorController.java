@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.vrum.bookProject.model.Author;
 import pl.vrum.bookProject.repositories.AuthorRepository;
 
-import java.util.List;
+
 
 @CrossOrigin
 @RestController
@@ -17,8 +17,8 @@ public class AuthorController {
     AuthorRepository authorRepository;
 
     @GetMapping
-    public List<Author> allAuthors() {
-        List<Author> list = authorRepository.findAll();
+    public Iterable<Author> allAuthors() {
+        Iterable<Author> list = authorRepository.findAll();
         return list;
     }
 
@@ -28,15 +28,22 @@ public class AuthorController {
     }
 
     @PostMapping
-    public Author authorAdd(@RequestBody Author author) {
+    public Author authorAdd(@ModelAttribute("author") Author author) {
         authorRepository.save(author);
         return author;
     }
 
-    @PutMapping("/{param1}")
-    public Author update(@RequestBody Author author, @PathVariable long param1) {
-        Author oldAuthor = authorRepository.findById(param1);
-        return oldAuthor;
+    @PutMapping(value="/{id}")
+    public Author update(@RequestBody Author author, @PathVariable Long id) {
+        author.setId(id);
+        authorRepository.save(author);
+        return author;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteBook(@PathVariable Long id)
+    {
+        authorRepository.deleteById(id);
     }
 
 }

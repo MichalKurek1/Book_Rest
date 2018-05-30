@@ -21,7 +21,7 @@ public class Book {
     private String publisher;
     private String type;
 
-    public Book() {    }
+    public Book() {}
 
     public Book(String isbn, String title, Author author, String publisher, String type) {
         this.isbn = isbn;
@@ -31,10 +31,10 @@ public class Book {
         this.type = type;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getIsbn() {
