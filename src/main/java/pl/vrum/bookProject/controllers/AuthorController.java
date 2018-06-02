@@ -22,9 +22,9 @@ public class AuthorController {
         return list;
     }
 
-    @GetMapping("/{param1}")
-    public Author author(@PathVariable long param1) {
-        return authorRepository.findById(param1);
+    @GetMapping("/{id}")
+    public Author author(@PathVariable long id) {
+        return authorRepository.findById(id);
     }
 
     @PostMapping
@@ -41,7 +41,7 @@ public class AuthorController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable Long id)
+    public void deleteAuthor(@PathVariable Long id)
     {
         authorRepository.deleteById(id);
     }
